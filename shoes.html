@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>신발 | FITROOM</title>
+  <meta name="description" content="FITROOM 신발 카테고리 - 스니커즈, 러닝화, 부츠, 로퍼, 슬라이드">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-cat="shoes">
+  <!-- 포트폴리오용 퍼블리싱 예시입니다. 상품·브랜드·가격은 모두 가상의 데이터입니다. -->
+  <p class="topbar">토스페이먼츠 테스트 결제 환경입니다 · 실제로 결제되지 않습니다</p>
+
+  <header class="header">
+    <div class="wrap header__row">
+      <a class="logo" href="index.html">FITROOM</a>
+      <form class="search" role="search">
+        <label class="sr-only" for="search">상품 검색</label>
+        <input id="search" type="search" placeholder="브랜드, 상품명 검색">
+        <button type="submit" aria-label="검색"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button>
+      </form>
+      <div class="header__util">
+        <a class="hide-m" href="#">로그인</a>
+        <a class="hide-m" href="#">마이페이지</a>
+        <button type="button" class="cart-btn" data-open-cart aria-label="장바구니 열기">
+          <svg viewBox="0 0 24 24"><path d="M5 7h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+          <span class="badge" data-cart-count hidden>0</span>
+        </button>
+      </div>
+    </div>
+    <nav class="wrap gnb" aria-label="카테고리">
+      <a href="index.html">상의</a>
+      <a href="pants.html">바지</a>
+      <a href="shoes.html" aria-current="page">신발</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="cat-head">
+      <ol class="breadcrumb"><li>홈</li><li>신발</li></ol>
+      <h1 class="cat-title">신발</h1>
+      <div class="chips" id="chips" role="group" aria-label="세부 카테고리"></div>
+    </section>
+
+    <div class="toolbar">
+      <p>상품 <b id="count">0</b>개</p>
+      <label class="sr-only" for="sort">정렬</label>
+      <select class="select" id="sort">
+        <option value="rec">추천순</option>
+        <option value="low">낮은 가격순</option>
+        <option value="high">높은 가격순</option>
+        <option value="sale">할인율순</option>
+        <option value="review">후기 많은순</option>
+      </select>
+    </div>
+
+    <ul class="grid" id="grid"></ul>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <strong>FITROOM</strong>
+      <p>포트폴리오용 쇼핑몰 퍼블리싱 예시입니다. 등장하는 브랜드·상품·가격은 모두 가상의 데이터이며, 실제 판매가 이루어지지 않습니다.</p>
+      <p>디자인은 국내 패션 플랫폼의 레이아웃을 참고했으며 해당 기업과 관련이 없습니다.</p>
+    </div>
+  </footer>
+
+  <!-- 상품 상세 모달 -->
+  <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mName">
+    <div class="modal__dim" data-close-modal></div>
+    <div class="modal__box">
+      <button type="button" class="modal__close" data-close-modal aria-label="닫기">✕</button>
+      <div class="modal__thumb" id="mThumb"></div>
+      <div class="modal__info">
+        <p class="m-brand" id="mBrand"></p>
+        <h2 class="m-name" id="mName"></h2>
+        <p class="m-review" id="mReview"></p>
+        <div class="m-price">
+          <del id="mList"></del>
+          <p><em id="mSale"></em><span id="mPrice"></span></p>
+        </div>
+        <dl class="m-row"><dt>배송비</dt><dd id="mShip"></dd></dl>
+        <dl class="m-row"><dt>배송 예정</dt><dd>오늘 주문 시 내일 출고 (예시)</dd></dl>
+        <p class="m-label">사이즈</p>
+        <div class="sizes" id="mSizes"></div>
+        <div class="m-qty">
+          <div class="qty">
+            <button type="button" data-mqty="-1" aria-label="수량 줄이기">−</button>
+            <span id="mQty">1</span>
+            <button type="button" data-mqty="1" aria-label="수량 늘리기">+</button>
+          </div>
+          <strong id="mTotal"></strong>
+        </div>
+        <div class="m-actions">
+          <button type="button" class="btn btn--white" id="mCart">장바구니</button>
+          <button type="button" class="btn btn--black" id="mBuy">바로 구매</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 장바구니 서랍 -->
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-label="장바구니">
+    <div class="drawer__dim" data-close-cart></div>
+    <div class="drawer__panel">
+      <div class="drawer__head">
+        <h2>장바구니</h2>
+        <button type="button" data-close-cart aria-label="닫기">✕</button>
+      </div>
+      <div class="drawer__body" id="drawerBody"></div>
+      <div class="drawer__foot">
+        <dl>
+          <dt>상품 금액</dt><dd id="drawerGoods">0원</dd>
+          <dt>배송비</dt><dd id="drawerShip">무료</dd>
+          <dt class="total">결제 예정 금액</dt><dd class="total" id="drawerPay">0원</dd>
+        </dl>
+        <button type="button" class="btn btn--black" id="drawerOrder" disabled>주문하기</button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/list.js"></script>
+</body>
+</html>
